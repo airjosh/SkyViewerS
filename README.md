@@ -32,7 +32,7 @@ Compatible with XCode 11.7 and iOS 13.7. This project is an application that let
 | Detail View | <img src="https://user-images.githubusercontent.com/18161446/95024824-2ea7e100-064b-11eb-9d77-e6617f2bedc5.png" width=200> |
 
 
-### Sumary
+### Summary
 - TableView, Delegate methods, TableViewCell with `Disclosure Indicator` accessory and `dequeueReusableCell` usage.
 - ImageViews and UIImage with constraints.
 - App Bundles
