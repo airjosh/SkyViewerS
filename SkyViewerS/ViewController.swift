@@ -24,22 +24,18 @@ class ViewController: UITableViewController {
         
         title = "Sky Viewer"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(likeApp))
         // this is a built-in system type that let us work whith a file system
         let fileManager = FileManager.default
         // set the resource path of our apps bundle
         let path = Bundle.main.resourcePath!
         let items = try! fileManager.contentsOfDirectory(atPath: path)
         
-        for item in items {
-            if item.hasPrefix("nssl") {
-                // a picture to load
-                pictures.append(item)
-            }
-        }
-        pictures.sort()
+        // a picture to load
+        pictures = items.filter{ $0.hasPrefix("nssl") }.sorted()
     }
 
-    // MARK - TableView Delegate methods
+    // MARK: - TableView Delegate methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pictures.count
@@ -59,7 +55,14 @@ class ViewController: UITableViewController {
         }
     }
     
-    // MARK - Objects
+    // MARK: - Objects
+    @objc func likeApp() {
+        let items = ["Hello there! Download this simple made with Swift here https://github.com/airjosh/SkyViewerS"]
+                
+        let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
     
 }
 

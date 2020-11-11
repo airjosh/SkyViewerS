@@ -13,7 +13,6 @@ class DetailViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     
     var selectedImage: String?
-   // var imageTitle: String?
     
     // MARK: - Lifecycle
     
@@ -21,7 +20,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         guard let imageToLoad = selectedImage else { return }
         
-        //title = selectedImage
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
         navigationItem.largeTitleDisplayMode = .never
         imageView.image = UIImage(named: imageToLoad)
     }
@@ -37,5 +37,16 @@ class DetailViewController: UIViewController {
     }
 
     // MARK: - Objects
+    @objc func shareTapped() {
+        guard let image = imageView.image?.jpegData(compressionQuality: 0.8), let name = selectedImage else {
+            print("No image found")
+            return
+        }
+        let items: [Any] = [image, name]
+        let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        // useful for ipads
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
     
 }
